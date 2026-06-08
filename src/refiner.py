@@ -14,8 +14,11 @@ Main characters:
 - Teacher, Classmates, Parents: supporting cast.
 
 Your task — for each line marked REFINE:
-1. Refine Text_TH: correct any unnatural Thai phrasing, fix grammar, preserve the author's voice.
-   Keep colloquial Thai where it fits the character (e.g., Time speaks casually).
+1. Refine Text_TH — rewrite so it sounds เป็นธรรมชาติ (natural when read aloud), เหมาะกับมังงะ
+   (short and punchy, fits a speech bubble), and ไม่เยิ่นเย้อหรือฝืน (no filler words, not stiff
+   or awkward). Cut any bloated phrasing. Time's dialogue is casual spoken Thai — แบบคนจริงๆ พูด,
+   ไม่ใช่ภาษาเขียน. Narration boxes can be slightly more internal/reflective but still concise.
+   Preserve meaning. Do not make the line longer than the original.
 2. Refine Text_EN: natural, casual English. For manga speech bubbles, aim for ≤15 words per line.
    Fix awkward literal translations. Capture the character's voice — Time sounds wry, not dramatic.
 3. Refine Text_JP: natural Japanese matching the register of the Thai (casual spoken for dialogue,
@@ -40,7 +43,10 @@ Narrator voice — Time (ไทม์): introspective, quietly sardonic, underst
 painful things with a kind of detached clarity, never melodramatic.
 
 Your task — for each paragraph marked REFINE:
-1. Refine Text_TH: correct unnatural Thai phrasing, preserve the author's literary voice.
+1. Refine Text_TH — rewrite so it reads เป็นธรรมชาติ (flows naturally), ไม่เยิ่นเย้อ (no bloated
+   or redundant phrasing), and ไม่ฝืน (not stiff or forced). For a novel this can be slightly more
+   literary than manga dialogue, but Time's voice stays understated — ไม่โอเวอร์, ไม่ฟูมฟาย.
+   Trim sentences that drag. Preserve meaning; do not make the paragraph longer than the original.
 2. Refine Text_EN: natural, gently literary English for prose narration. Fix literal translations.
    Sentences should flow — vary length for rhythm. Capture the narrator's quiet tone.
 3. Refine Text_JP: natural literary Japanese (やや文語的) matching the Thai register.
