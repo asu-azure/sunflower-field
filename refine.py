@@ -29,7 +29,8 @@ load_dotenv()
 DEFAULT_INPUT = "master_translation.xlsx"
 DEFAULT_OUTPUT = "master_translation_REFINED.xlsx"
 DEFAULT_MODEL = "claude-sonnet-4-6"
-BATCH_SIZE = 15
+MANGA_BATCH_SIZE = 15
+NOVEL_BATCH_SIZE = 8   # novel paragraphs are longer; keep output within token budget
 CONTEXT_WINDOW = 3
 
 _interrupted = False
@@ -69,12 +70,14 @@ def process_sheet(
 ) -> dict[int, dict]:
     global _interrupted
 
+    batch_size = MANGA_BATCH_SIZE if sheet_type == "manga" else NOVEL_BATCH_SIZE
+
     if limit:
         rows = rows[:limit]
 
     results = _load_progress(sheet_type)
     already_done = set(results.keys())
-    pending_indices = [i for i in range(0, len(rows), BATCH_SIZE) if rows[i]["row_idx"] not in already_done]
+    pending_indices = [i for i in range(0, len(rows), batch_size) if rows[i]["row_idx"] not in already_done]
 
     if not pending_indices:
         print(f"  All {len(rows)} rows already refined (cached). Delete .progress_{sheet_type}.json to re-run.")
@@ -83,7 +86,7 @@ def process_sheet(
     if dry_run:
         # Just do the first batch and print
         sample_batch_start = pending_indices[0]
-        sample = refine_batch(rows, sample_batch_start, min(BATCH_SIZE, 5), sheet_type, client, model, CONTEXT_WINDOW)
+        sample = refine_batch(rows, sample_batch_start, min(batch_size, 5), sheet_type, client, model, CONTEXT_WINDOW)
         batch = rows[sample_batch_start : sample_batch_start + len(sample)]
         print(f"\n--- DRY RUN: {sheet_type} sheet (first {len(sample)} lines) ---")
         for orig, refined in zip(batch, sample):
@@ -105,13 +108,13 @@ def process_sheet(
                 break
 
             try:
-                refined_list = refine_batch(rows, batch_start, BATCH_SIZE, sheet_type, client, model, CONTEXT_WINDOW)
+                refined_list = refine_batch(rows, batch_start, batch_size, sheet_type, client, model, CONTEXT_WINDOW)
             except Exception as e:
                 print(f"\nError at batch {batch_start}: {e}", file=sys.stderr)
                 _save_progress(sheet_type, results)
                 raise
 
-            batch = rows[batch_start : batch_start + BATCH_SIZE]
+            batch = rows[batch_start : batch_start + batch_size]
             for row, refined in zip(batch, refined_list):
                 results[row["row_idx"]] = refined
 

@@ -115,7 +115,7 @@ def _call_with_retry(client: anthropic.Anthropic, model: str, system: str, promp
         try:
             msg = client.messages.create(
                 model=model,
-                max_tokens=4096,
+                max_tokens=16000,
                 system=system,
                 messages=[{"role": "user", "content": prompt}],
             )
