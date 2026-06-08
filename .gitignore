@@ -1,0 +1,9 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+.progress_manga.json
+.progress_novel.json
+master_translation_REFINED.xlsx
+*.xlsx
+!master_translation.xlsx
